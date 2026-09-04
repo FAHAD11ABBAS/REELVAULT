@@ -1,0 +1,2612 @@
+/*
+Theme Name: Vibecoding Theme
+Description: A modern, responsive WordPress vibecoding theme built with React components, Radix UI primitives, and CSS custom properties. Features a comprehensive design system with CSS custom properties, dark mode support, accessibility compliance, and SEO optimization.
+Version: 1.25.60
+Author: VibeCoding
+Author URI: Vibecoding
+Theme URI: Vibecoding
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: wvc-theme
+Domain Path: /languages
+Requires at least: 6.4
+Tested up to: 6.4
+Requires PHP: 7.4
+Tags:
+*/
+
+body {
+  margin: 0;
+  color: var(--color-foreground, var(--foreground));
+  background-color: var(--color-background, var(--background));
+}
+
+.site {
+  color: var(--color-foreground, var(--foreground));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1 1 auto;
+}
+
+/* =========================
+   SITE CHROME / LAYOUT
+   ========================= */
+.container,
+.content-container,
+.header-container,
+.footer-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.site-main {
+  background-color: var(--color-background, var(--background));
+  min-height: 60vh;
+  padding: 2rem 0;
+}
+
+.content-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+.content-layout--with-sidebar {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 1024px) {
+  .content-layout--with-sidebar {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+.content-layout--split {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .content-layout--split {
+    flex-direction: row;
+  }
+
+  .content-layout--split > .content-area {
+    flex: 1 1 auto;
+  }
+}
+
+.posts-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .posts-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.site-header {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border-bottom: 1px solid var(--color-border, var(--border));
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.site-branding {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.site-title a {
+  color: var(--color-foreground, var(--foreground));
+  text-decoration: none;
+}
+
+.site-title a:hover {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.site-description {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.main-navigation {
+  display: flex;
+  align-items: center;
+}
+
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary-foreground, var(--primary-foreground));
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.menu-toggle:hover {
+  background-color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 90%, transparent);
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.menu-icon span {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: currentColor;
+}
+
+.primary-menu,
+.footer-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.primary-menu {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .primary-menu {
+    display: flex;
+  }
+}
+
+.primary-menu a,
+.footer-menu a,
+.menu-link {
+  color: var(--color-foreground, var(--foreground));
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.primary-menu a:hover,
+.footer-menu a:hover,
+.menu-link:hover {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.site-footer {
+  background-color: var(--color-foreground, var(--foreground));
+  color: var(--color-background, var(--background));
+  padding: 2rem 0;
+}
+
+.footer-bottom {
+  border-top: 1px solid color-mix(in srgb, var(--color-background, var(--background)) 20%, transparent);
+  padding-top: 1.5rem;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .footer-info {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.footer-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-footer a {
+  color: var(--color-background, var(--background));
+}
+
+.site-footer a:hover {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.page-header,
+.post-header {
+  background-color: var(--color-muted, var(--muted));
+  border-bottom: 1px solid var(--color-border, var(--border));
+  padding: 1.5rem;
+}
+
+.page-title,
+.post-title {
+  color: var(--color-foreground, var(--foreground));
+  margin: 0 0 0.75rem;
+}
+
+.page-header .page-title,
+.post-header .post-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.archive-description,
+.post-meta {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.875rem;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+article.post-card,
+article.single-post,
+article.page,
+section.error-404 {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+  /*overflow: hidden;*/
+}
+
+article.post-card:hover {
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.post-card-body,
+.page-content,
+.post-content {
+  padding: 1.5rem;
+}
+
+.post-thumbnail img,
+.page-thumbnail img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+article.post-card .post-thumbnail img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Primary button — .btn on <button>, submit inputs, or <a> CTAs */
+.btn,
+.wp-element-button,
+.search-submit,
+.comment-form .form-submit input[type="submit"],
+.comment-form input[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary, var(--primary));
+  color: var(--color-primary-foreground, var(--primary-foreground));
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.5rem) - 2px));
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  outline: none;
+  transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.btn:hover,
+.btn:focus-visible,
+.wp-element-button:hover,
+.wp-element-button:focus-visible,
+.search-submit:hover,
+.comment-form .form-submit input[type="submit"]:hover,
+.comment-form input[type="submit"]:hover {
+  background-color: var(--color-foreground, var(--foreground));
+  color: var(--color-background, var(--background));
+  text-decoration: none;
+}
+
+.btn:focus-visible,
+.wp-element-button:focus-visible,
+.search-submit:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring, var(--ring)) 50%, transparent);
+}
+
+.btn.read-more,
+a.read-more.btn {
+  display: inline-flex;
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 1.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-widest, 0.1em);
+  text-transform: uppercase;
+}
+
+.related-posts {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+}
+
+.related-posts-grid {
+  margin-top: 1rem;
+}
+
+.search-form-wrap {
+  max-width: 28rem;
+  margin: 1rem auto 0;
+}
+
+.page-links-title {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.product-details {
+  margin-top: 2rem;
+}
+
+.no-results,
+section.error-404 {
+  padding: 2rem;
+  text-align: center;
+}
+
+.no-results {
+  background-color: var(--color-muted, var(--muted));
+}
+
+.post-footer,
+.page-links {
+  border-top: 1px solid var(--color-border, var(--border));
+  background-color: var(--color-muted, var(--muted));
+  padding: 1rem 1.5rem;
+}
+
+.post-navigation,
+.product-navigation {
+  margin-top: 2rem;
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+  overflow: hidden;
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+}
+
+.post-navigation .nav-links,
+.product-navigation .nav-links {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .post-navigation .nav-links,
+  .product-navigation .nav-links {
+    flex-direction: row;
+  }
+}
+
+.nav-previous,
+.nav-next {
+  flex: 1 1 auto;
+  padding: 1.5rem;
+}
+
+.nav-previous {
+  background-color: var(--color-muted, var(--muted));
+}
+
+.nav-next {
+  background-color: color-mix(in srgb, var(--color-secondary, var(--secondary, var(--color-secondary-500))) 15%, transparent);
+}
+
+.nav-subtitle {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  margin-bottom: 0.25rem;
+}
+
+.nav-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-foreground, var(--foreground));
+}
+
+.nav-previous a,
+.nav-next a,
+.post-navigation a,
+.product-navigation a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-previous a:hover .nav-title,
+.nav-next a:hover .nav-title {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.author-bio,
+.product-summary-card,
+.comments-shell {
+  margin-top: 2rem;
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+  padding: 1.5rem;
+}
+
+.author-bio {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.author-avatar img {
+  border-radius: 9999px;
+  border: 2px solid var(--color-border, var(--border));
+}
+
+.post-featured-text,
+.product-featured-text {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: color-mix(in srgb, var(--color-secondary, var(--secondary, var(--color-secondary-500))) 15%, transparent);
+  border-left: 4px solid var(--color-secondary, var(--secondary, var(--color-secondary-500)));
+  border-radius: var(--radius-md, 0.375rem);
+}
+
+.post-type-badge {
+  display: inline-block;
+  background-color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 12%, transparent);
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.product-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .product-layout {
+    flex-direction: row;
+  }
+
+  .product-images {
+    flex: 1 1 28rem;
+    max-width: 28rem;
+  }
+
+  .product-summary {
+    flex: 1 1 auto;
+  }
+}
+
+.widget-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .widget-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.widget-panel {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+  padding: 1.5rem;
+}
+
+.widget-list a {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  text-decoration: none;
+}
+
+.widget-list a:hover {
+  color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 80%, transparent);
+}
+
+.widget-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border, var(--border));
+}
+
+.widget-list li:last-child {
+  border-bottom: 0;
+}
+
+.widget-count {
+  font-size: 0.75rem;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  background-color: var(--color-muted, var(--muted));
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.empty-page-container {
+  min-height: calc(100vh - 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.25rem;
+}
+
+.empty-page-content {
+  text-align: left;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.empty-page-heading {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--color-foreground, var(--foreground));
+  margin: 0 0 1.5rem;
+  line-height: 1.15;
+}
+
+.empty-page-text {
+  font-size: 1.25rem;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  line-height: 1.4;
+  margin: 0;
+}
+
+.comment-body {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+  overflow: hidden;
+}
+
+.comment-body .comment-meta {
+  padding: 1rem;
+  background-color: var(--color-muted, var(--muted));
+  border-bottom: 1px solid var(--color-border, var(--border));
+}
+
+.comment-author.vcard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.comment-author-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.comment-body .comment-content {
+  padding: 1rem;
+}
+
+.comment-author-avatar img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-border, var(--border));
+}
+
+.comment-author-info .fn {
+  font-weight: 700;
+  color: var(--color-foreground, var(--foreground));
+}
+
+.comment-awaiting-moderation {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: color-mix(in srgb, var(--color-warning, var(--warning)) 15%, transparent);
+  border: 1px solid var(--color-warning, var(--warning));
+  border-radius: var(--radius-md, 0.375rem);
+  color: var(--color-foreground, var(--foreground));
+  font-size: 0.875rem;
+}
+
+.comment-body .reply {
+  padding: 1rem;
+  background-color: var(--color-muted, var(--muted));
+  border-top: 1px solid var(--color-border, var(--border));
+}
+
+.reply-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary-foreground, var(--primary-foreground));
+  border-radius: var(--radius-md, 0.375rem);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.reply-link:hover {
+  background-color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 90%, transparent);
+}
+
+.comments-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border, var(--border));
+}
+
+.comments-title .post-title-highlight {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.no-comments {
+  background-color: var(--color-muted, var(--muted));
+  border-left: 4px solid var(--color-border, var(--border));
+  padding: 1rem;
+  border-radius: var(--radius-md, 0.375rem);
+}
+
+.comment-form-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border, var(--border));
+}
+
+.comment-reply-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+/* :is(.prose, .card-content, .page-content, .post-content, .entry-content,
+      .comment-content, .woocommerce-product-details__short-description,
+      .woocommerce-Tabs-panel, .wp-block-post-content) */
+
+/* =========================
+   WooCommerce color overrides
+   (colors only, with !important)
+   ========================= */
+/* 1) WooCommerce colors applied on components below (no :root var definitions) */
+
+/* 2) Buttons — dual body-class support */
+.wvc-woocommerce a.button,
+.wvc-woocommerce button.button,
+.wvc-woocommerce input.button,
+.wvc-woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit {
+  background-color: var(--color-secondary, var(--secondary, var(--color-secondary-500))) !important;
+  color: var(--color-secondary-foreground, var(--secondary-foreground)) !important;
+}
+
+.wvc-woocommerce a.button:hover,
+.wvc-woocommerce button.button:hover,
+.wvc-woocommerce input.button:hover,
+.wvc-woocommerce #respond input#submit:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover {
+  background-color: color-mix(in srgb, var(--color-secondary, var(--secondary, var(--color-secondary-500))) 90%, transparent) !important;
+  color: var(--color-secondary-foreground, var(--secondary-foreground)) !important;
+}
+
+/* Primary buttons */
+.wvc-woocommerce a.button.alt,
+.wvc-woocommerce button.button.alt,
+.wvc-woocommerce input.button.alt,
+.wvc-woocommerce #respond input#submit.alt,
+.wvc-woocommerce #add_payment_method .wc-proceed-to-checkout a.checkout-button,
+.wvc-woocommerce-cart .wc-proceed-to-checkout a.checkout-button,
+.wvc-woocommerce-checkout .wc-proceed-to-checkout a.checkout-button,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt,
+.woocommerce #respond input#submit.alt,
+.woocommerce #add_payment_method .wc-proceed-to-checkout a.checkout-button,
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button,
+.woocommerce-checkout .wc-proceed-to-checkout a.checkout-button {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground))) !important;
+}
+
+.wvc-woocommerce a.button.alt:hover,
+.wvc-woocommerce button.button.alt:hover,
+.wvc-woocommerce input.button.alt:hover,
+.wvc-woocommerce #respond input#submit.alt:hover,
+.wvc-woocommerce #add_payment_method .wc-proceed-to-checkout a.checkout-button:hover,
+.wvc-woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover,
+.wvc-woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt:hover,
+.woocommerce #respond input#submit.alt:hover,
+.woocommerce #add_payment_method .wc-proceed-to-checkout a.checkout-button:hover,
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover,
+.woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:hover {
+  background-color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 90%, transparent) !important;
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground))) !important;
+}
+
+/* WooCommerce block cart submit button (Tailwind-like primary button) */
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained,
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 2.5rem !important;
+  padding: 0.5rem 1rem !important;
+  border: 1px solid transparent !important;
+  border-radius: 0;
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground))) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.25rem !important;
+  text-decoration: none !important;
+  transition: background-color 150ms ease, box-shadow 150ms ease, opacity 150ms ease !important;
+}
+
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:hover,
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained:hover,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:hover,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained:hover {
+  background-color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 90%, transparent) !important;
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground))) !important;
+}
+
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:focus-visible,
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained:focus-visible,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:focus-visible,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--color-card, var(--card, var(--color-background, var(--background)))), 0 0 0 4px var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+}
+
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:disabled,
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained[aria-disabled="true"],
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained:disabled,
+.wvc-woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained[aria-disabled="true"],
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:disabled,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained[aria-disabled="true"],
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained:disabled,
+.woocommerce .wc-block-components-button.wp-element-button.wc-block-components-checkout-place-order-button.contained[aria-disabled="true"] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Disabled buttons */
+.wvc-woocommerce a.button:disabled,
+.wvc-woocommerce button.button:disabled,
+.wvc-woocommerce input.button:disabled,
+.wvc-woocommerce #respond input#submit:disabled,
+.wvc-woocommerce a.button.disabled,
+.wvc-woocommerce button.button.disabled,
+.wvc-woocommerce input.button.disabled,
+.woocommerce a.button:disabled,
+.woocommerce button.button:disabled,
+.woocommerce input.button:disabled,
+.woocommerce #respond input#submit:disabled,
+.woocommerce a.button.disabled,
+.woocommerce button.button.disabled,
+.woocommerce input.button.disabled {
+  background-color: var(--color-secondary, var(--secondary, var(--color-secondary-500))) !important;
+  color: var(--color-secondary-foreground, var(--secondary-foreground)) !important;
+}
+
+/* 3) Notices */
+.wvc-woocommerce-message,
+.wvc-woocommerce-info,
+.wvc-woocommerce-error,
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background)))) !important;
+  color: var(--color-foreground, var(--foreground)) !important;
+}
+
+.wvc-woocommerce-message,
+.woocommerce-message { border-top-color: var(--color-success, var(--success)) !important; }
+.wvc-woocommerce-info,
+.woocommerce-info { border-top-color: var(--color-info, var(--info)) !important; }
+.wvc-woocommerce-error,
+.woocommerce-error { border-top-color: var(--color-destructive, var(--destructive, var(--color-error, var(--error)))) !important; }
+
+.wvc-woocommerce-message::before,
+.woocommerce-message::before { color: var(--color-success, var(--success)) !important; }
+.wvc-woocommerce-info::before,
+.woocommerce-info::before { color: var(--color-info, var(--info)) !important; }
+.wvc-woocommerce-error::before,
+.woocommerce-error::before { color: var(--color-destructive, var(--destructive, var(--color-error, var(--error)))) !important; }
+
+.wvc-woocommerce-warning,
+.woocommerce-warning {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background)))) !important;
+  color: var(--color-card-foreground, var(--card-foreground, var(--color-foreground, var(--foreground)))) !important;
+  border-top-color: var(--color-warning, var(--warning)) !important;
+}
+.wvc-woocommerce-warning::before,
+.woocommerce-warning::before {
+  color: var(--color-warning, var(--warning)) !important;
+}
+
+
+
+/* 4) Sale badge */
+.wvc-woocommerce span.onsale,
+.woocommerce span.onsale {
+  background-color: var(--color-accent, var(--accent)) !important;
+  color: var(--color-accent-foreground, var(--accent-foreground)) !important;
+}
+
+/* 5) Remove link */
+.wvc-woocommerce a.remove,
+.woocommerce a.remove {
+  color: var(--color-destructive, var(--destructive, var(--color-error, var(--error)))) !important;
+}
+.wvc-woocommerce a.remove:hover,
+.woocommerce a.remove:hover {
+  background-color: var(--color-destructive-foreground, var(--destructive-foreground)) !important;
+  color: var(--color-card, var(--card, var(--color-background, var(--background)))) !important;
+}
+
+/* 6) Product price */
+.wvc-woocommerce div.product p.price,
+.wvc-woocommerce div.product span.price,
+.wvc-woocommerce ul.products li.product .price,
+.woocommerce div.product p.price,
+.woocommerce div.product span.price,
+.woocommerce ul.products li.product .price {
+  color: var(--color-accent, var(--accent)) !important;
+}
+
+/* 7) Store notice */
+.wvc-woocommerce-store-notice,
+.wvc-woocommerce p.demo_store,
+.woocommerce-store-notice,
+.woocommerce p.demo_store {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground))) !important;
+}
+.wvc-woocommerce-store-notice a,
+.wvc-woocommerce p.demo_store a,
+.woocommerce-store-notice a,
+.woocommerce p.demo_store a {
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground))) !important;
+}
+
+/* 8) Checkout payment box */
+.wvc-woocommerce-checkout #payment div.payment_box,
+.wvc-woocommerce #add_payment_method #payment div.payment_box,
+.woocommerce-checkout #payment div.payment_box,
+.woocommerce #add_payment_method #payment div.payment_box {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background)))) !important;
+  color: var(--color-foreground, var(--foreground)) !important;
+}
+.wvc-woocommerce-checkout #payment div.payment_box::before,
+.wvc-woocommerce #add_payment_method #payment div.payment_box::before,
+.woocommerce-checkout #payment div.payment_box::before,
+.woocommerce #add_payment_method #payment div.payment_box::before {
+  border-bottom-color: var(--color-card, var(--card, var(--color-background, var(--background)))) !important;
+}
+
+/* 9) WooCommerce block text inputs */
+.wc-block-components-form .wc-block-components-text-input input[type="email"],
+.wc-block-components-form .wc-block-components-text-input input[type="number"],
+.wc-block-components-form .wc-block-components-text-input input[type="password"],
+.wc-block-components-form .wc-block-components-text-input input[type="tel"],
+.wc-block-components-form .wc-block-components-text-input input[type="text"],
+.wc-block-components-form .wc-block-components-text-input input[type="url"],
+.wc-block-components-text-input input[type="email"],
+.wc-block-components-text-input input[type="number"],
+.wc-block-components-text-input input[type="password"],
+.wc-block-components-text-input input[type="tel"],
+.wc-block-components-text-input input[type="text"],
+.wc-block-components-text-input input[type="url"],
+.wc-block-components-textarea {
+  color: var(--color-foreground, var(--foreground)) !important;
+  background-color: var(--color-background, var(--background)) !important;
+  border-color: var(--color-input, var(--input, var(--color-border, var(--border)))) !important;
+}
+
+.wc-block-components-form .wc-block-components-text-input input[type="email"]::placeholder,
+.wc-block-components-form .wc-block-components-text-input input[type="number"]::placeholder,
+.wc-block-components-form .wc-block-components-text-input input[type="password"]::placeholder,
+.wc-block-components-form .wc-block-components-text-input input[type="tel"]::placeholder,
+.wc-block-components-form .wc-block-components-text-input input[type="text"]::placeholder,
+.wc-block-components-form .wc-block-components-text-input input[type="url"]::placeholder,
+.wc-block-components-text-input input[type="email"]::placeholder,
+.wc-block-components-text-input input[type="number"]::placeholder,
+.wc-block-components-text-input input[type="password"]::placeholder,
+.wc-block-components-text-input input[type="tel"]::placeholder,
+.wc-block-components-text-input input[type="text"]::placeholder,
+.wc-block-components-text-input input[type="url"]::placeholder,
+.wc-block-components-textarea::placeholder {
+  color: var(--color-muted-foreground, var(--muted-foreground)) !important;
+}
+
+.wc-block-components-form .wc-block-components-text-input input[type="email"]:focus,
+.wc-block-components-form .wc-block-components-text-input input[type="number"]:focus,
+.wc-block-components-form .wc-block-components-text-input input[type="password"]:focus,
+.wc-block-components-form .wc-block-components-text-input input[type="tel"]:focus,
+.wc-block-components-form .wc-block-components-text-input input[type="text"]:focus,
+.wc-block-components-form .wc-block-components-text-input input[type="url"]:focus,
+.wc-block-components-text-input input[type="email"]:focus,
+.wc-block-components-text-input input[type="number"]:focus,
+.wc-block-components-text-input input[type="password"]:focus,
+.wc-block-components-text-input input[type="tel"]:focus,
+.wc-block-components-text-input input[type="text"]:focus,
+.wc-block-components-text-input input[type="url"]:focus,
+.wc-block-components-textarea:focus {
+  border-color: var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  box-shadow: 0 0 0 1px var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  outline: none !important;
+}
+
+.wc-blocks-components-select__select {
+  color: var(--color-foreground, var(--foreground)) !important;
+  background-color: var(--color-background, var(--background)) !important;
+  border-color: var(--color-input, var(--input, var(--color-border, var(--border)))) !important;
+}
+
+.wc-blocks-components-select__select:focus {
+  border-color: var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  box-shadow: 0 0 0 1px var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  outline: none !important;
+}
+
+.wc-block-components-radio-control__input {
+  color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  background-color: var(--color-background, var(--background)) !important;
+  border-color: var(--color-input, var(--input, var(--color-border, var(--border)))) !important;
+  accent-color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  padding: 0 !important;
+  padding-block: 0 !important;
+  padding-inline: 0 !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  min-width: 1rem !important;
+  min-height: 1rem !important;
+  line-height: 1 !important;
+  border-radius: 9999px !important;
+}
+
+.wc-block-components-radio-control__input:focus {
+  border-color: var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  box-shadow: 0 0 0 1px var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  outline: none !important;
+}
+
+.wc-block-components-radio-control__input:checked {
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  background-color: var(--color-background, var(--background)) !important;
+}
+
+.wc-block-components-checkbox__input,
+.wc-block-components-checkbox input[type="checkbox"] {
+  color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  background-color: var(--color-background, var(--background)) !important;
+  border-color: var(--color-input, var(--input, var(--color-border, var(--border)))) !important;
+  accent-color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  padding: 0 !important;
+  padding-block: 0 !important;
+  padding-inline: 0 !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  min-width: 1rem !important;
+  min-height: 1rem !important;
+  line-height: 1 !important;
+  border-radius: var(--radius-sm, 0.25rem) !important;
+}
+
+.wc-block-components-checkbox__input:focus,
+.wc-block-components-checkbox input[type="checkbox"]:focus {
+  border-color: var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  box-shadow: 0 0 0 1px var(--color-ring, var(--color-primary, var(--primary, var(--color-primary-500)))) !important;
+  outline: none !important;
+}
+
+/* =========================
+   WooCommerce layout polish
+   ========================= */
+.wvc-woocommerce ul.products,
+.woocommerce ul.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wvc-woocommerce ul.products li.product,
+.woocommerce ul.products li.product {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.wvc-woocommerce ul.products li.product img,
+.woocommerce ul.products li.product img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wvc-woocommerce .woocommerce-result-count,
+.wvc-woocommerce .woocommerce-ordering,
+.woocommerce .woocommerce-result-count,
+.woocommerce .woocommerce-ordering {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  margin-bottom: 1rem;
+}
+
+.wvc-woocommerce .woocommerce-ordering select,
+.woocommerce .woocommerce-ordering select {
+  color: var(--color-foreground, var(--foreground));
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.375rem 0.75rem;
+}
+
+.wvc-woocommerce .woocommerce-pagination ul,
+.woocommerce .woocommerce-pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.wvc-woocommerce .woocommerce-pagination .page-numbers,
+.woocommerce .woocommerce-pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-border, var(--border));
+  color: var(--color-foreground, var(--foreground));
+  text-decoration: none;
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+}
+
+.wvc-woocommerce .woocommerce-pagination .page-numbers.current,
+.wvc-woocommerce .woocommerce-pagination .page-numbers:hover,
+.woocommerce .woocommerce-pagination .page-numbers.current,
+.woocommerce .woocommerce-pagination .page-numbers:hover {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground)));
+}
+
+.wvc-woocommerce div.product .summary,
+.woocommerce div.product .summary {
+  color: var(--color-foreground, var(--foreground));
+}
+
+.wvc-woocommerce div.product form.cart .quantity .qty,
+.woocommerce div.product form.cart .quantity .qty {
+  color: var(--color-foreground, var(--foreground));
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.375rem 0.5rem;
+  width: 4rem;
+}
+
+.wvc-woocommerce table.variations,
+.woocommerce table.variations {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.wvc-woocommerce table.variations select,
+.woocommerce table.variations select {
+  width: 100%;
+  color: var(--color-foreground, var(--foreground));
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.375rem 0.75rem;
+}
+
+.wvc-woocommerce .woocommerce-tabs,
+.woocommerce .woocommerce-tabs {
+  margin-top: 2rem;
+}
+
+.wvc-woocommerce .woocommerce-tabs ul.tabs,
+.woocommerce .woocommerce-tabs ul.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  border-bottom: 1px solid var(--color-border, var(--border));
+}
+
+.wvc-woocommerce .woocommerce-tabs ul.tabs li a,
+.woocommerce .woocommerce-tabs ul.tabs li a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  text-decoration: none;
+}
+
+.wvc-woocommerce .woocommerce-tabs ul.tabs li.active a,
+.wvc-woocommerce .woocommerce-tabs ul.tabs li a:hover,
+.woocommerce .woocommerce-tabs ul.tabs li.active a,
+.woocommerce .woocommerce-tabs ul.tabs li a:hover {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.wvc-woocommerce .woocommerce-Tabs-panel,
+.woocommerce .woocommerce-Tabs-panel {
+  padding-top: 0.5rem;
+}
+
+.wvc-woocommerce .related.products,
+.wvc-woocommerce .upsells.products,
+.woocommerce .related.products,
+.woocommerce .upsells.products {
+  margin-top: 2.5rem;
+}
+
+.wvc-woocommerce table.shop_table,
+.woocommerce table.shop_table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--color-foreground, var(--foreground));
+}
+
+.wvc-woocommerce table.shop_table th,
+.wvc-woocommerce table.shop_table td,
+.woocommerce table.shop_table th,
+.woocommerce table.shop_table td {
+  border-bottom: 1px solid var(--color-border, var(--border));
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.wvc-woocommerce .cart-collaterals .cart_totals,
+.woocommerce .cart-collaterals .cart_totals {
+  background-color: var(--color-muted, var(--muted));
+  padding: 1rem;
+  border: 1px solid var(--color-border, var(--border));
+}
+
+.wvc-woocommerce .woocommerce-MyAccount-navigation ul,
+.woocommerce .woocommerce-MyAccount-navigation ul {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: 1px solid var(--color-sidebar-border, var(--sidebar-border, var(--color-border, var(--border))));
+  background-color: var(--color-sidebar, var(--sidebar, var(--color-card, var(--card))));
+}
+
+.wvc-woocommerce .woocommerce-MyAccount-navigation li a,
+.woocommerce .woocommerce-MyAccount-navigation li a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--color-sidebar-foreground, var(--sidebar-foreground, var(--color-foreground, var(--foreground))));
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-sidebar-border, var(--sidebar-border, var(--color-border, var(--border))));
+}
+
+.wvc-woocommerce .woocommerce-MyAccount-navigation li.is-active a,
+.wvc-woocommerce .woocommerce-MyAccount-navigation li a:hover,
+.woocommerce .woocommerce-MyAccount-navigation li.is-active a,
+.woocommerce .woocommerce-MyAccount-navigation li a:hover {
+  background-color: var(--color-sidebar-accent, var(--sidebar-accent, var(--color-muted, var(--muted))));
+  color: var(--color-sidebar-primary, var(--sidebar-primary, var(--color-primary, var(--primary))));
+}
+
+
+.wvc-woocommerce .woocommerce-form-login,
+.wvc-woocommerce .woocommerce-form-register,
+.woocommerce .woocommerce-form-login,
+.woocommerce .woocommerce-form-register {
+  max-width: 28rem;
+}
+
+.wvc-woocommerce .woocommerce-breadcrumb,
+.woocommerce .woocommerce-breadcrumb {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.wvc-woocommerce .woocommerce-breadcrumb a,
+.woocommerce .woocommerce-breadcrumb a {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  text-decoration: none;
+}
+
+.wvc-woocommerce .star-rating,
+.woocommerce .star-rating {
+  color: var(--color-accent, var(--accent));
+}
+
+.wvc-woocommerce .widget_shopping_cart .mini_cart_item,
+.woocommerce .widget_shopping_cart .mini_cart_item {
+  color: var(--color-foreground, var(--foreground));
+}
+
+.checkout.woocommerce-checkout {
+  grid-template-columns: auto;
+}
+
+wrapper[data-processed="true"] {
+  display: none !important;
+}
+
+/* =========================
+   1. HEADINGS (h1-h6)
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.25rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h2 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h2:first-child,
+h2:first-child {
+  margin-top: 0;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h4 {
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h5 {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) h6 {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* =========================
+   2. PARAGRAPHS
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.625;
+}
+
+/* =========================
+   3. LISTS
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) ul {
+  list-style: disc;
+  list-style-type: disc;
+  list-style-image: none;
+  padding-left: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) ul li {
+  display: list-item;
+  list-style: disc;
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  padding-left: 0.25rem;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) ul li::marker {
+  color: inherit;
+  font-size: 1em;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) ol {
+  list-style-type: decimal;
+  list-style-position: outside;
+  padding-left: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) ol li {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: outside;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  padding-left: 0.25rem;
+}
+
+/* =========================
+   4. TEXT FORMATTING
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) strong,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) b,
+strong {
+  font-weight: 700;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) em,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) i,
+em {
+  font-style: italic;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) mark {
+  background-color: color-mix(in srgb, var(--color-accent, var(--accent)) 25%, transparent);
+  color: inherit;
+  padding: 0.1em 0.2em;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) del {
+  text-decoration: line-through;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) ins {
+  text-decoration: underline;
+  background-color: color-mix(in srgb, var(--color-success, var(--success)) 15%, transparent);
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) small {
+  font-size: 0.875em;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) sub,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* =========================
+   5. LINKS
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) a:not(.btn):not(.wp-element-button):not(.read-more):not(.search-submit) {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) a:not(.btn):not(.wp-element-button):not(.read-more):not(.search-submit):hover {
+  color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 90%, transparent);
+}
+
+/* =========================
+   6. IMAGES / MEDIA / TABLES / CODE
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) img,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) video,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) iframe,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) embed,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) object {
+  max-width: 100%;
+  height: auto;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) figure {
+  margin: 1.5rem 0;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) figcaption {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.wp-block-embed__wrapper,
+.wp-has-aspect-ratio .wp-block-embed__wrapper {
+  position: relative;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) table,
+.wp-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  color: var(--color-foreground, var(--foreground));
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) th,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) td,
+.wp-block-table th,
+.wp-block-table td {
+  border: 1px solid var(--color-border, var(--border));
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) thead th,
+.wp-block-table thead th {
+  background-color: var(--color-muted, var(--muted));
+  font-weight: 600;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) code,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) kbd,
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) samp {
+  font-family: var(--font-mono, var(--font-family-mono, monospace));
+  font-size: 0.875em;
+  background-color: var(--color-muted, var(--muted));
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) pre {
+  font-family: var(--font-mono, var(--font-family-mono, monospace));
+  font-size: 0.875rem;
+  background-color: var(--color-muted, var(--muted));
+  color: var(--color-foreground, var(--foreground));
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: var(--radius-md, 0.375rem);
+  margin: 1.5rem 0;
+  border: 1px solid var(--color-border, var(--border));
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) pre code {
+  background: transparent;
+  padding: 0;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) dl {
+  margin: 1rem 0;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) dt {
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) dd {
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+/* Alignments */
+.alignnone {
+  margin: 5px 20px 5px 0;
+}
+
+.aligncenter {
+  display: block;
+  margin: 5px auto;
+}
+
+.alignright {
+  float: right;
+  margin: 5px 0 5px 20px;
+}
+
+.alignleft {
+  float: left;
+  margin: 5px 20px 5px 0;
+}
+
+a img.alignright {
+  float: right;
+  margin: 5px 0 5px 20px;
+}
+
+a img.alignnone {
+  margin: 5px 20px 5px 0;
+}
+
+a img.alignleft {
+  float: left;
+  margin: 5px 20px 5px 0;
+}
+
+a img.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignwide {
+  max-width: min(100%, 72rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignfull {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.wp-caption {
+  background: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  max-width: 96%;
+  padding: 5px 3px 10px;
+  text-align: center;
+}
+
+.wp-caption.alignnone {
+  margin: 5px 20px 5px 0;
+}
+
+.wp-caption.alignleft {
+  margin: 5px 20px 5px 0;
+}
+
+.wp-caption.alignright {
+  margin: 5px 0 5px 20px;
+}
+
+.wp-caption img {
+  border: 0 none;
+  height: auto;
+  max-width: 98.5%;
+  padding: 0;
+  margin: 0;
+}
+
+.wp-caption p.wp-caption-text,
+.wp-caption-text,
+.gallery-caption {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 0 4px 5px;
+  margin: 0.35rem 0 0;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.gallery-item {
+  margin: 0;
+  text-align: center;
+}
+
+.gallery-icon img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bypostauthor > .comment-body {
+  border-left: 3px solid var(--color-primary, var(--primary, var(--color-primary-500)));
+  padding-left: 0.75rem;
+}
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border-radius: var(--radius-sm, 0.25rem);
+  box-shadow: var(--shadow-sm);
+  clip: auto !important;
+  clip-path: none;
+  color: var(--color-foreground, var(--foreground));
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  height: auto;
+  left: 0.5rem;
+  line-height: normal;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  top: 0.5rem;
+  width: auto;
+  z-index: 100000;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999999;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+  background: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border, var(--border));
+}
+
+/* =========================
+   7. BLOCKQUOTE
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) blockquote {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  padding-left: 1rem;
+  border-left: 4px solid var(--color-border, var(--border));
+  font-style: italic;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+/* =========================
+   8. HORIZONTAL RULE
+   ========================= */
+:is(.prose, .card-content, .page-content, .post-content, .entry-content, .comment-content, .woocommerce-product-details__short-description, .woocommerce-Tabs-panel, .wp-block-post-content) hr {
+  border: 0;
+  border-top: 1px solid var(--color-border, var(--border));
+  margin: 2rem 0;
+}
+
+/* =========================
+   9. FORMS (WP + plugins)
+   ========================= */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="password"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+textarea,
+select {
+  color: var(--color-foreground, var(--foreground));
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  line-height: 1.5;
+  max-width: 100%;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="time"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 1px var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  outline: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  width: 1rem;
+  height: 1rem;
+}
+
+label {
+  color: var(--color-foreground, var(--foreground));
+}
+
+fieldset {
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 1rem;
+  margin: 0 0 1rem;
+}
+
+legend {
+  padding: 0 0.35rem;
+  font-weight: 600;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.search-form label {
+  flex: 1 1 auto;
+  min-width: 10rem;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.comment-form textarea,
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"] {
+  width: 100%;
+}
+
+.required {
+  color: var(--color-destructive, var(--destructive, var(--color-error, var(--error))));
+}
+
+.error,
+.wpcf7-not-valid-tip,
+.gform_validation_errors,
+.wpforms-error-container {
+  color: var(--color-destructive, var(--destructive, var(--color-error, var(--error))));
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"],
+.wpcf7-not-valid,
+.gfield_error input,
+.wpforms-error {
+  border-color: var(--color-destructive, var(--destructive, var(--color-error, var(--error)))) !important;
+}
+
+.wpcf7-form input[type="submit"],
+.gform_button,
+.wpforms-submit {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground)));
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.wpcf7-form input[type="submit"]:hover,
+.gform_button:hover,
+.wpforms-submit:hover {
+  background-color: color-mix(in srgb, var(--color-primary, var(--primary, var(--color-primary-500))) 90%, transparent);
+}
+
+.wpcf7-form input,
+.wpcf7-form textarea,
+.wpcf7-form select,
+.gform_wrapper input,
+.gform_wrapper textarea,
+.gform_wrapper select,
+.wpforms-form input,
+.wpforms-form textarea,
+.wpforms-form select {
+  border-color: var(--color-border, var(--border));
+  color: var(--color-foreground, var(--foreground));
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+}
+
+.wpcf7-form input:focus,
+.wpcf7-form textarea:focus,
+.wpcf7-form select:focus,
+.gform_wrapper input:focus,
+.gform_wrapper textarea:focus,
+.gform_wrapper select:focus,
+.wpforms-form input:focus,
+.wpforms-form textarea:focus,
+.wpforms-form select:focus {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 1px var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  outline: none;
+}
+
+/* =========================
+   10. GUTENBERG BLOCKS
+   ========================= */
+.wp-block-group,
+.wp-block-columns {
+  margin: 1.5rem 0;
+}
+
+.wp-block-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.wp-block-column {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.wp-block-separator {
+  border: 0;
+  border-top: 1px solid var(--color-border, var(--border));
+  margin: 2rem auto;
+  width: 100%;
+}
+
+.wp-block-separator.is-style-wide {
+  width: 100%;
+}
+
+.wp-block-separator.is-style-dots {
+  border: 0;
+  text-align: center;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+.wp-block-spacer {
+  clear: both;
+}
+
+.wp-block-quote {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  padding-left: 1rem;
+  border-left: 4px solid var(--color-border, var(--border));
+  font-style: italic;
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+.wp-block-pullquote {
+  border-top: 4px solid var(--color-border, var(--border));
+  border-bottom: 4px solid var(--color-border, var(--border));
+  margin: 2rem 0;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--color-foreground, var(--foreground));
+}
+
+.wp-block-verse,
+.wp-block-preformatted {
+  font-family: var(--font-mono, var(--font-family-mono, monospace));
+  white-space: pre-wrap;
+  background-color: var(--color-muted, var(--muted));
+  padding: 1rem;
+  border-radius: var(--radius-md, 0.375rem);
+}
+
+.wp-block-code {
+  background-color: var(--color-muted, var(--muted));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.wp-block-image {
+  margin: 1.5rem 0;
+}
+
+.wp-block-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wp-block-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.wp-block-cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 16rem;
+  padding: 1.5rem;
+  color: #fff;
+  background-color: var(--color-foreground, var(--foreground));
+}
+
+.wp-block-media-text {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 600px) {
+  .wp-block-media-text {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+.wp-block-video video,
+.wp-block-audio audio {
+  width: 100%;
+  max-width: 100%;
+}
+
+.wp-block-file a:not(.wp-block-file__button) {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.wp-block-file__button,
+.wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary, var(--primary));
+  color: var(--color-primary-foreground, var(--primary-foreground)) !important;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, calc(var(--radius, 0.5rem) - 2px));
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.25;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.wp-block-file__button:hover,
+.wp-block-button__link:hover {
+  background-color: var(--color-foreground, var(--foreground));
+  color: var(--color-background, var(--background)) !important;
+}
+
+.wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+  background-color: transparent;
+  color: var(--color-primary, var(--primary, var(--color-primary-500))) !important;
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.wp-block-details {
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+}
+
+.wp-block-details summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.wp-block-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.wp-block-query {
+  margin: 1.5rem 0;
+}
+
+.wp-block-post-template {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.wp-block-post-title {
+  margin: 0 0 0.5rem;
+}
+
+.wp-block-post-title a {
+  color: var(--color-foreground, var(--foreground));
+  text-decoration: none;
+}
+
+.wp-block-post-title a:hover {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.wp-block-post-excerpt {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+.wp-block-post-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wp-block-tag-cloud a,
+.tagcloud a {
+  display: inline-block;
+  margin: 0.2rem;
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  text-decoration: none;
+}
+
+/* =========================
+   11. COMMENTS / PAGINATION / NAV
+   ========================= */
+.comments-area {
+  color: var(--color-foreground, var(--foreground));
+  box-shadow: var(--shadow-sm);
+}
+
+.comment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.comment-list .comment,
+.comment-list .pingback,
+.comment-list .trackback {
+  margin-bottom: 1.5rem;
+}
+
+.comment-meta {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-content {
+  color: var(--color-foreground, var(--foreground));
+}
+
+.comment-content a {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+.reply a,
+.comment-reply-link {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.nav-links,
+.pagination,
+.posts-navigation,
+.post-navigation,
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.page-numbers,
+.nav-previous a,
+.nav-next a,
+.post-navigation a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--color-border, var(--border));
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  text-decoration: none;
+  border-radius: var(--radius-md, 0.375rem);
+}
+
+.page-numbers.current,
+.page-numbers:hover,
+.nav-previous a:hover,
+.nav-next a:hover,
+.post-navigation a:hover {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary-foreground, var(--color-primary-foreground, var(--primary-foreground)));
+}
+
+.breadcrumb,
+.yoast-breadcrumb,
+.rank-math-breadcrumb {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.breadcrumb a,
+.yoast-breadcrumb a,
+.rank-math-breadcrumb a {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  text-decoration: none;
+}
+
+/* =========================
+   12. WIDGETS
+   ========================= */
+.widget {
+  margin-bottom: 1.5rem;
+  color: var(--color-sidebar-foreground, var(--sidebar-foreground, var(--color-foreground, var(--foreground))));
+  background-color: var(--color-sidebar, var(--sidebar, var(--color-card, var(--card))));
+  border: 1px solid var(--color-sidebar-border, var(--sidebar-border, var(--color-border, var(--border))));
+  padding: 1rem;
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: var(--shadow-sm);
+}
+
+.widget-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--color-sidebar-foreground, var(--sidebar-foreground, var(--color-foreground, var(--foreground))));
+}
+
+.widget ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.widget ul li {
+  margin-bottom: 0.5rem;
+}
+
+.widget a {
+  color: var(--color-sidebar-primary, var(--sidebar-primary, var(--color-primary, var(--primary))));
+  text-decoration: none;
+}
+
+.widget a:hover {
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+
+.calendar_wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar_wrap th,
+.calendar_wrap td {
+  text-align: center;
+  padding: 0.35rem;
+  border: 1px solid var(--color-border, var(--border));
+}
+
+/* =========================
+   13. RADIX / DATA-SLOT
+   ========================= */
+[data-slot="input"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+[data-slot="input"]::placeholder {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+[data-slot="input"]:focus-visible {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500)))))) 20%, transparent);
+  outline: none;
+}
+
+[data-slot="input"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-slot="textarea"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+[data-slot="textarea"]::placeholder {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+[data-slot="textarea"]:focus-visible {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500)))))) 20%, transparent);
+  outline: none;
+}
+
+[data-slot="textarea"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-slot="checkbox"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1.5px solid var(--color-border, var(--border));
+  border-radius: var(--radius-sm, 0.25rem);
+  transition: background-color 150ms, border-color 150ms;
+}
+
+[data-slot="checkbox"][data-state="checked"],
+[data-slot="checkbox"][data-state="indeterminate"] {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary-foreground, var(--primary-foreground, #fff));
+}
+
+[data-slot="checkbox"]:focus-visible {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500)))))) 20%, transparent);
+  outline: none;
+}
+
+[data-slot="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-slot="radio-group-item"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1.5px solid var(--color-border, var(--border));
+  border-radius: 9999px;
+  transition: border-color 150ms;
+}
+
+[data-slot="radio-group-item"][data-state="checked"] {
+  border-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+  color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+[data-slot="radio-group-item"]:focus-visible {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500)))))) 20%, transparent);
+  outline: none;
+}
+
+[data-slot="radio-group-item"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-slot="switch"] {
+  background-color: var(--color-muted, var(--muted));
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  transition: background-color 150ms;
+}
+
+[data-slot="switch"][data-state="checked"] {
+  background-color: var(--color-primary, var(--primary, var(--color-primary-500)));
+}
+
+[data-slot="switch"]:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500)))))) 20%, transparent);
+  outline: none;
+}
+
+[data-slot="switch"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-slot="label"] {
+  color: var(--color-foreground, var(--foreground));
+}
+
+[data-slot="select-trigger"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  color: var(--color-foreground, var(--foreground));
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+[data-slot="select-trigger"]:focus-visible {
+  border-color: var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500))))));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ring, var(--ring, var(--color-primary, var(--color-primary, var(--primary, var(--color-primary-500)))))) 20%, transparent);
+}
+
+[data-slot="select-trigger"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-slot="select-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 12%, transparent);
+  z-index: 50;
+}
+
+[data-slot="select-item"] {
+  background-color: transparent;
+  color: var(--color-foreground, var(--foreground));
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+[data-slot="select-item"]:hover,
+[data-slot="select-item"][data-highlighted] {
+  background-color: var(--color-muted, var(--muted, #f3f4f6));
+  color: var(--color-foreground, var(--foreground));
+  outline: none;
+}
+
+[data-slot="select-item"][data-state="checked"] {
+  font-weight: 500;
+}
+
+[data-slot="select-label"] {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+[data-slot="select-separator"] {
+  background-color: var(--color-border, var(--border));
+}
+
+[data-slot="select-scroll-up-button"],
+[data-slot="select-scroll-down-button"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-muted, var(--muted));
+}
+
+[data-slot="dropdown-menu-content"],
+[data-slot="dropdown-menu-sub-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 12%, transparent);
+  z-index: 50;
+}
+
+[data-slot="dropdown-menu-item"],
+[data-slot="dropdown-menu-checkbox-item"],
+[data-slot="dropdown-menu-radio-item"] {
+  background-color: transparent;
+  color: var(--color-foreground, var(--foreground));
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+[data-slot="dropdown-menu-item"]:hover,
+[data-slot="dropdown-menu-item"][data-highlighted],
+[data-slot="dropdown-menu-checkbox-item"]:hover,
+[data-slot="dropdown-menu-checkbox-item"][data-highlighted],
+[data-slot="dropdown-menu-radio-item"]:hover,
+[data-slot="dropdown-menu-radio-item"][data-highlighted] {
+  background-color: var(--color-muted, var(--muted, #f3f4f6));
+  color: var(--color-foreground, var(--foreground));
+  outline: none;
+}
+
+[data-slot="dropdown-menu-label"] {
+  color: var(--color-muted-foreground, var(--muted-foreground));
+}
+
+[data-slot="dropdown-menu-separator"] {
+  background-color: var(--color-border, var(--border));
+}
+
+[data-slot="popover-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 12%, transparent);
+  z-index: 50;
+}
+
+[data-slot="context-menu-content"],
+[data-slot="context-menu-sub-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 12%, transparent);
+  z-index: 50;
+}
+
+[data-slot="context-menu-item"]:hover,
+[data-slot="context-menu-item"][data-highlighted] {
+  background-color: var(--color-muted, var(--muted, #f3f4f6));
+  color: var(--color-foreground, var(--foreground));
+  outline: none;
+}
+
+[data-slot="menubar-content"],
+[data-slot="menubar-sub-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 12%, transparent);
+  z-index: 50;
+}
+
+[data-slot="menubar-item"]:hover,
+[data-slot="menubar-item"][data-highlighted] {
+  background-color: var(--color-muted, var(--muted, #f3f4f6));
+  color: var(--color-foreground, var(--foreground));
+  outline: none;
+}
+
+[data-slot="tooltip-content"] {
+  background-color: var(--color-foreground, var(--foreground));
+  color: var(--color-background, var(--background));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 8%, transparent);
+  z-index: 50;
+}
+
+[data-slot="dialog-overlay"],
+[data-slot="alert-dialog-overlay"] {
+  background-color: color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 50%, transparent);
+  z-index: 50;
+}
+
+[data-slot="dialog-content"],
+[data-slot="alert-dialog-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-lg, var(--radius, 0.5rem));
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 18%, transparent);
+  z-index: 50;
+}
+
+[data-slot="sheet-overlay"] {
+  background-color: color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 50%, transparent);
+  z-index: 50;
+}
+
+[data-slot="sheet-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border-color: var(--color-border, var(--border));
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 18%, transparent);
+  z-index: 50;
+}
+
+[data-slot="hover-card-content"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+  border: 1px solid var(--color-border, var(--border));
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-foreground, var(--foreground, #111)) 12%, transparent);
+  z-index: 50;
+}
+
+[data-slot="command"] {
+  background-color: var(--color-card, var(--card, var(--color-background, var(--background))));
+  color: var(--color-foreground, var(--foreground));
+}
+
+[data-slot="command-input"] {
+  background-color: transparent;
+  border-bottom: 1px solid var(--color-border, var(--border));
+}
+
+[data-slot="command-item"]:hover,
+[data-slot="command-item"][data-selected="true"] {
+  background-color: var(--color-muted, var(--muted, #f3f4f6));
+  color: var(--color-foreground, var(--foreground));
+}
